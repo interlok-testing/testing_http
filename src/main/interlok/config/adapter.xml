@@ -1,0 +1,182 @@
+<adapter>
+  <unique-id>http</unique-id>
+  <start-up-event-imp>com.adaptris.core.event.StandardAdapterStartUpEvent</start-up-event-imp>
+  <heartbeat-event-imp>com.adaptris.core.HeartbeatEvent</heartbeat-event-imp>
+  <shared-components>
+    <connections>
+      <jetty-embedded-connection>
+        <unique-id>Embedded Jetty Connection</unique-id>
+      </jetty-embedded-connection>
+    </connections>
+    <services/>
+  </shared-components>
+  <event-handler class="default-event-handler">
+    <unique-id>DefaultEventHandler</unique-id>
+    <connection class="null-connection">
+      <unique-id>sleepy-fermat</unique-id>
+    </connection>
+    <producer class="null-message-producer">
+      <unique-id>naughty-pike</unique-id>
+    </producer>
+  </event-handler>
+  <message-error-handler class="null-processing-exception-handler">
+    <unique-id>reverent-cray</unique-id>
+  </message-error-handler>
+  <failed-message-retrier class="no-retries">
+    <unique-id>clever-einstein</unique-id>
+  </failed-message-retrier>
+  <channel-list>
+    <channel>
+      <consume-connection class="shared-connection">
+        <lookup-name>Embedded Jetty Connection</lookup-name>
+      </consume-connection>
+      <produce-connection class="null-connection">
+        <unique-id>kickass-blackwell</unique-id>
+      </produce-connection>
+      <workflow-list>
+        <standard-workflow>
+          <consumer class="jetty-message-consumer">
+            <unique-id>jetty-consumer</unique-id>
+            <path>${apiPath}</path>
+            <methods>GET</methods>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>infallible-bohr</unique-id>
+            <services>
+              <standalone-requestor>
+                <unique-id>standard-http</unique-id>
+                <connection class="null-connection">
+                  <unique-id>berserk-poitras</unique-id>
+                </connection>
+                <producer class="standard-http-producer">
+                  <unique-id>modest-fermat</unique-id>
+                  <method-provider class="http-configured-request-method">
+                    <method>${httpMethod}</method>
+                  </method-provider>
+                  <content-type-provider class="http-configured-content-type-provider">
+                    <mime-type>application/json</mime-type>
+                  </content-type-provider>
+                  <response-header-handler class="http-discard-response-headers"/>
+                  <request-header-provider class="http-no-request-headers"/>
+                  <url>${requestApiUrl}</url>
+                  <authenticator class="http-no-authentication"/>
+                </producer>
+              </standalone-requestor>
+              <json-path-service>
+                <unique-id>extract-joke-standard</unique-id>
+                <source class="string-payload-data-input-parameter"/>
+                <json-path-execution>
+                  <source class="constant-data-input-parameter">
+                    <value>${extractXpath}</value>
+                  </source>
+                  <target class="metadata-data-output-parameter">
+                    <metadata-key>jokeStandard</metadata-key>
+                  </target>
+                  <suppress-path-not-found>true</suppress-path-not-found>
+                </json-path-execution>
+              </json-path-service>
+              <standalone-requestor>
+                <unique-id>apache-http</unique-id>
+                <connection class="null-connection">
+                  <unique-id>berserk-poitras</unique-id>
+                </connection>
+                <producer class="apache-http-producer">
+                  <unique-id>amazing-mcclintock</unique-id>
+                  <method-provider class="http-configured-request-method">
+                    <method>${httpMethod}</method>
+                  </method-provider>
+                  <content-type-provider class="http-configured-content-type-provider">
+                    <mime-type>application/json</mime-type>
+                  </content-type-provider>
+                  <response-header-handler class="apache-http-discard-response-headers"/>
+                  <request-header-provider class="apache-http-no-request-headers"/>
+                  <url>${requestApiUrl}</url>
+                </producer>
+              </standalone-requestor>
+              <json-path-service>
+                <unique-id>extract-joke-apache</unique-id>
+                <source class="string-payload-data-input-parameter"/>
+                <json-path-execution>
+                  <source class="constant-data-input-parameter">
+                    <value>${extractXpath}</value>
+                  </source>
+                  <target class="metadata-data-output-parameter">
+                    <metadata-key>jokeApache</metadata-key>
+                  </target>
+                  <suppress-path-not-found>true</suppress-path-not-found>
+                </json-path-execution>
+              </json-path-service>
+              <standalone-requestor>
+                <unique-id>ok-http</unique-id>
+                <connection class="null-connection">
+                  <unique-id>berserk-poitras</unique-id>
+                </connection>
+                <producer class="okhttp-http-producer">
+                  <unique-id>agitated-curie</unique-id>
+                  <method-provider class="http-configured-request-method">
+                    <method>${httpMethod}</method>
+                  </method-provider>
+                  <content-type-provider class="http-configured-content-type-provider">
+                    <mime-type>application/json</mime-type>
+                  </content-type-provider>
+                  <response-header-handler class="okhttp-discard-response-headers"/>
+                  <request-header-provider class="okhttp-no-request-headers"/>
+                  <url>${requestApiUrl}</url>
+                  <request-body class="string-payload-data-input-parameter"/>
+                  <response-body class="string-payload-data-output-parameter"/>
+                </producer>
+              </standalone-requestor>
+              <json-path-service>
+                <unique-id>extract-joke-ok</unique-id>
+                <source class="string-payload-data-input-parameter"/>
+                <json-path-execution>
+                  <source class="constant-data-input-parameter">
+                    <value>${extractXpath}</value>
+                  </source>
+                  <target class="metadata-data-output-parameter">
+                    <metadata-key>jokeOk</metadata-key>
+                  </target>
+                  <suppress-path-not-found>true</suppress-path-not-found>
+                </json-path-execution>
+              </json-path-service>
+              <metadata-to-json-service>
+                <unique-id>sharp-fermi</unique-id>
+                <metadata-filter class="regex-metadata-filter">
+                  <include-pattern>joke.*</include-pattern>
+                </metadata-filter>
+              </metadata-to-json-service>
+            </services>
+          </service-collection>
+          <producer class="jetty-standard-response-producer">
+            <unique-id>ResponseProducer</unique-id>
+            <status-provider class="http-metadata-status">
+              <code-key>ResponseCode</code-key>
+              <default-status>OK_200</default-status>
+            </status-provider>
+            <response-header-provider class="jetty-no-response-headers"/>
+            <content-type-provider class="http-null-content-type-provider"/>
+            <send-payload>true</send-payload>
+          </producer>
+          <produce-exception-handler class="null-produce-exception-handler"/>
+          <unique-id>http-get</unique-id>
+          <message-metrics-interceptor>
+            <unique-id>naughty-hoover-MessageMetrics</unique-id>
+            <timeslice-duration>
+              <unit>MINUTES</unit>
+              <interval>5</interval>
+            </timeslice-duration>
+            <timeslice-history-count>12</timeslice-history-count>
+          </message-metrics-interceptor>
+          <in-flight-workflow-interceptor>
+            <unique-id>naughty-hoover-InFlight</unique-id>
+          </in-flight-workflow-interceptor>
+        </standard-workflow>
+      </workflow-list>
+      <unique-id>http-get</unique-id>
+    </channel>
+  </channel-list>
+  <message-error-digester class="standard-message-error-digester">
+    <unique-id>ErrorDigest</unique-id>
+    <digest-max-size>100</digest-max-size>
+  </message-error-digester>
+</adapter>

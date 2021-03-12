@@ -1,0 +1,43 @@
+@startuml "Via Interlok"
+
+participant User
+participant Interlok
+participant ChuckNorrisJokeAPI
+
+== Demo Processing ==
+User->Interlok: HTTP GET
+Interlok->ChuckNorrisJokeAPI: Call Joke API with StandardHttp
+note right of Interlok
+{
+  "value" : "A Chuck Norris Joke",
+  ...
+}
+end note
+Interlok->Interlok: JSON Path extract joke data to metadata
+Interlok->ChuckNorrisJokeAPI: Call Joke API with ApacheHttp
+note right of Interlok
+{
+  "value" : "A Chuck Norris Joke",
+  ...
+}
+end note
+Interlok->Interlok: JSON Path extract joke data to metadata
+Interlok->ChuckNorrisJokeAPI: Call Joke API with OkHttp
+note right of Interlok
+{
+  "value" : "A Chuck Norris Joke",
+  ...
+}
+end note
+Interlok->Interlok: JSON Path extract joke data to metadata
+Interlok->Interlok: Aggregate joke data to JSON payload
+Interlok-->User: The data.
+note right of Interlok
+{
+  "jokeStandard" : "A Chuck Norris Joke",
+  "jokeApache" : "A Chuck Norris Joke",
+  "jokeOk" : "A Chuck Norris Joke"
+}
+end note
+
+@enduml

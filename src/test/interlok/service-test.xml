@@ -1,0 +1,287 @@
+<service-test>
+  <unique-id>tender-pare</unique-id>
+  <test-client class="embedded-jmx-test-client">
+    <shared-components>
+      <connections/>
+      <services/>
+    </shared-components>
+    <shared-components-provider>
+      <services/>
+    </shared-components-provider>
+  </test-client>
+  <helpers>
+    <wire-mock-helper>
+      <file-source>file:///${service.tester.working.directory}/src/test/resources/http_stubs</file-source>
+      <port-provider class="dynamic-port-provider">
+        <offset>8080</offset>
+      </port-provider>
+    </wire-mock-helper>
+  </helpers>
+  <test-list>
+    <unique-id>http-get</unique-id>
+    <test>
+      <unique-id>standard-http@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-payload-valid</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="empty-payload-provider"/>
+        </input-message-provider>
+        <assertions>
+          <assert-json-payload-equals>
+            <payload><![CDATA[{ "icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png", "id" : "E-H-5-TlS2msprVLgr40cQ", "url" : "", "value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris." }
+]]></payload>
+          </assert-json-payload-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>standard-http</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables-test.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>extract-joke-standard@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-valid-metadata</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="inline-payload-provider">
+            <payload><![CDATA[{
+"icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+"id" : "E-H-5-TlS2msprVLgr40cQ",
+"url" : "",
+"value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris."
+}]]></payload>
+          </payload-provider>
+        </input-message-provider>
+        <assertions>
+          <assert-metadata-equals>
+            <metadata>
+              <key-value-pair>
+                <key>jokeStandard</key>
+                <value>Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris.</value>
+              </key-value-pair>
+            </metadata>
+          </assert-metadata-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>extract-joke-standard</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>apache-http@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-payload-valid</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="empty-payload-provider"/>
+        </input-message-provider>
+        <assertions>
+          <assert-json-payload-equals>
+            <payload><![CDATA[{ "icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png", "id" : "E-H-5-TlS2msprVLgr40cQ", "url" : "", "value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris." }
+]]></payload>
+          </assert-json-payload-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>apache-http</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables-test.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>extract-joke-apache@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-valid-metadata</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="inline-payload-provider">
+            <payload><![CDATA[{
+"icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+"id" : "E-H-5-TlS2msprVLgr40cQ",
+"url" : "",
+"value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris."
+}]]></payload>
+          </payload-provider>
+        </input-message-provider>
+        <assertions>
+          <assert-metadata-equals>
+            <metadata>
+              <key-value-pair>
+                <key>jokeApache</key>
+                <value>Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris.</value>
+              </key-value-pair>
+            </metadata>
+          </assert-metadata-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>extract-joke-apache</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>ok-http@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-payload-valid</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="empty-payload-provider"/>
+        </input-message-provider>
+        <assertions>
+          <assert-json-payload-equals>
+            <payload><![CDATA[{ "icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png", "id" : "E-H-5-TlS2msprVLgr40cQ", "url" : "", "value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris." }
+]]></payload>
+          </assert-json-payload-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>ok-http</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables-test.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>extract-joke-ok@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-valid-metadata</unique-id>
+        <input-message-provider>
+          <metadata-provider class="empty-metadata-provider"/>
+          <payload-provider class="inline-payload-provider">
+            <payload><![CDATA[{
+"icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+"id" : "E-H-5-TlS2msprVLgr40cQ",
+"url" : "",
+"value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris."
+}]]></payload>
+          </payload-provider>
+        </input-message-provider>
+        <assertions>
+          <assert-metadata-equals>
+            <metadata>
+              <key-value-pair>
+                <key>jokeOk</key>
+                <value>Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris.</value>
+              </key-value-pair>
+            </metadata>
+          </assert-metadata-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>extract-joke-ok</service>
+          </service-unique-id-preprocessor>
+          <variable-substitution-preprocessor>
+            <property-file>file:///${service.tester.working.directory}/src/main/interlok/config/variables.properties</property-file>
+          </variable-substitution-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+    <test>
+      <unique-id>sharp-fermi@http-get</unique-id>
+      <test-case>
+        <unique-id>assert-payload-correct</unique-id>
+        <input-message-provider>
+          <metadata-provider class="inline-metadata-provider">
+            <metadata>
+              <key-value-pair>
+                <key>jokeStandard</key>
+                <value>jokeStandard</value>
+              </key-value-pair>
+              <key-value-pair>
+                <key>jokeApache</key>
+                <value>jokeApache</value>
+              </key-value-pair>
+              <key-value-pair>
+                <key>jokeOk</key>
+                <value>jokeOk</value>
+              </key-value-pair>
+            </metadata>
+          </metadata-provider>
+          <payload-provider class="empty-payload-provider"/>
+        </input-message-provider>
+        <assertions>
+          <assert-json-payload-equals>
+            <payload><![CDATA[{"jokeApache":"jokeApache","jokeOk":"jokeOk","jokeStandard":"jokeStandard"}]]></payload>
+          </assert-json-payload-equals>
+        </assertions>
+      </test-case>
+      <service-to-test>
+        <source class="file-source">
+          <file>file:///${service.tester.working.directory}/src/main/interlok/config/adapter.xml</file>
+        </source>
+        <preprocessors>
+          <service-unique-id-preprocessor>
+            <channel>http-get</channel>
+            <workflow>http-get</workflow>
+            <service>sharp-fermi</service>
+          </service-unique-id-preprocessor>
+        </preprocessors>
+      </service-to-test>
+    </test>
+  </test-list>
+</service-test>

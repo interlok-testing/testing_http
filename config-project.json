@@ -1,0 +1,27 @@
+{
+  "name" : "http",
+  "variableSets" : {
+    "default" : { },
+    "test" : { }
+  },
+  "variableXpaths" : {
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/consumer/path" : "${apiPath}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"standard-http\"]/producer/url" : "${requestApiUrl}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"apache-http\"]/producer/url" : "${requestApiUrl}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"ok-http\"]/producer/url" : "${requestApiUrl}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/json-path-service[unique-id=\"extract-joke-standard\"]/json-path-execution[1]/source/value" : "${extractXpath}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/json-path-service[unique-id=\"extract-joke-apache\"]/json-path-execution[1]/source/value" : "${extractXpath}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/json-path-service[unique-id=\"extract-joke-ok\"]/json-path-execution[1]/source/value" : "${extractXpath}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"standard-http\"]/producer/method-provider/method" : "${httpMethod}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"apache-http\"]/producer/method-provider/method" : "${httpMethod}",
+    "/adapter/channel-list/channel[unique-id=\"http-get\"]/workflow-list/standard-workflow[unique-id=\"http-get\"]/service-collection/services/standalone-requestor[unique-id=\"ok-http\"]/producer/method-provider/method" : "${httpMethod}"
+  },
+  "uidInXincludeCompntListFileName" : false,
+  "xincludeXpaths" : { },
+  "additionalFiles" : {
+    "bootstrap.properties" : "bootstrap.properties",
+    "log4j2.xml" : "log4j2.xml"
+  },
+  "optionalComponentsInUse" : [ "com.adaptris:interlok-apache-http:4.0-SNAPSHOT", "com.adaptris:interlok-json:4.0-SNAPSHOT", "com.adaptris:interlok-okhttp:4.0-SNAPSHOT" ],
+  "structured" : true
+}
