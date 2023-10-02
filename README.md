@@ -1,5 +1,8 @@
 # HTTP Testing
 
+[![license](https://img.shields.io/github/license/interlok-testing/testing_http.svg)](https://github.com/interlok-testing/testing_http/blob/develop/LICENSE)
+[![Actions Status](https://github.com/interlok-testing/testing_http/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/interlok-testing/testing_http/actions/workflows/gradle-build.yml)
+
 Project tests interlok-apache-http, interlok-okhttp, interlok-json features
 
 ## What it does
