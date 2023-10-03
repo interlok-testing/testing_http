@@ -157,7 +157,6 @@
             <content-type-provider class="http-null-content-type-provider"/>
             <send-payload>true</send-payload>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>http-get</unique-id>
           <message-metrics-interceptor>
             <unique-id>naughty-hoover-MessageMetrics</unique-id>

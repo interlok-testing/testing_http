@@ -1,13 +1,13 @@
 {
-  "request" : {
-    "url" : "/jokes/random",
+  "httpRequest" : {
+    "path" : "/jokes/random",
     "method" : "GET"
   },
-  "response": {
-    "status": 200,
-    "body": "{ \"icon_url\" : \"https://assets.chucknorris.host/img/avatar/chuck-norris.png\", \"id\" : \"E-H-5-TlS2msprVLgr40cQ\", \"url\" : \"\", \"value\" : \"Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris.\" }",
+  "httpResponse": {
+    "statusCode": 200,
+    "body": { "icon_url" : "https://assets.chucknorris.host/img/avatar/chuck-norris.png", "id" : "E-H-5-TlS2msprVLgr40cQ", "url" : "", "value" : "Why did the chicken cross the road? Because it was afraid to be on the same side as Chuck Norris." },
     "headers": {
-        "Content-Type": "application/json"
+        "content-type": [ "application/json" ]
     }
   }
 }
